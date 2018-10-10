@@ -1,12 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package automato;
 
-import automato.mealy.transicao.TransicaoEntrada;
-import automato.mealy.transicao.TransicaoSaida;
+import sexpression.SExp;
+import automato.mealy.TransicaoSaidaMealy;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -14,68 +13,52 @@ import java.util.Set;
  *
  * @author joel-
  */
-public class Mealy {
-    private Set<String> alfabetoEntrada;
-    private Set<String> estados;
-    private Map<TransicaoEntrada, TransicaoSaida> funcTrans;
-    private String estadoInicial;
-    private Set<String> alfabetoSaida;
-    private Set<String> estadosFinais;
+public class Mealy extends AutomatoConversivel {
+    private Map<TransicaoEntrada, TransicaoSaidaMealy> funcTrans;
 
-    public Mealy(Set<String> alfabetoEntrada, Set<String> estados, Map<TransicaoEntrada, TransicaoSaida> funcTrans, String estadoInicial, Set<String> alfabetoSaida, Set<String> estadosFinais) {
-        this.alfabetoEntrada = alfabetoEntrada;
-        this.estados = estados;
+    public Mealy(SExp sExp) {
+        super(sExp);
+        this.funcTrans = getFuncTransFromSExp(sExp);
+    }
+
+    public Mealy(Map<TransicaoEntrada, TransicaoSaidaMealy> funcTrans, Set<String> alfabetoIn, Set<String> estados, String estadoInicial, Set<String> alfabetoOut, Set<String> estadosFinais) {
+        super(alfabetoIn, estados, estadoInicial, alfabetoOut, estadosFinais);
         this.funcTrans = funcTrans;
-        this.estadoInicial = estadoInicial;
-        this.alfabetoSaida = alfabetoSaida;
-        this.estadosFinais = estadosFinais;
     }
 
-    public Set<String> getEstadosFinais() {
-        return estadosFinais;
+    @Override
+    public AutomatoConversivel converter() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
-    public void setEstadosFinais(Set<String> estadosFinais) {
-        this.estadosFinais = estadosFinais;
-    }
-
-    public Set<String> getAlfabetoEntrada() {
-        return alfabetoEntrada;
-    }
-
-    public void setAlfabetoEntrada(Set<String> alfabetoEntrada) {
-        this.alfabetoEntrada = alfabetoEntrada;
-    }
-
-    public Set<String> getEstados() {
-        return estados;
-    }
-
-    public void setEstados(Set<String> estados) {
-        this.estados = estados;
-    }
-
-    public Map<TransicaoEntrada, TransicaoSaida> getFuncTrans() {
+    
+    public Map<TransicaoEntrada, TransicaoSaidaMealy> getFuncTrans() {
         return funcTrans;
     }
 
-    public void setFuncTrans(Map<TransicaoEntrada, TransicaoSaida> funcTrans) {
+    public void setFuncTrans(Map<TransicaoEntrada, TransicaoSaidaMealy> funcTrans) {
         this.funcTrans = funcTrans;
     }
-
-    public String getEstadoInicial() {
-        return estadoInicial;
+    
+    private Map<TransicaoEntrada,TransicaoSaidaMealy> getFuncTransFromSExp(SExp sExp){
+        ArrayList<SExp> transicoes = sExp.getChildren().get(5).getChildren();
+        Iterator<TransicaoEntrada> transicaoEntradas = getTransInFromSExp(transicoes);
+        Iterator<TransicaoSaidaMealy> transicaoSaidas = getTransOutFromSExp(transicoes);
+        
+        Map<TransicaoEntrada, TransicaoSaidaMealy> funcTransFromSExp = new HashMap<>();
+        
+        while (transicaoEntradas.hasNext() || transicaoSaidas.hasNext()) 
+            funcTransFromSExp.put(transicaoEntradas.next(), transicaoSaidas.next());
+        
+        return funcTransFromSExp;
     }
 
-    public void setEstadoInicial(String estadoInicial) {
-        this.estadoInicial = estadoInicial;
-    }
+    private Iterator<TransicaoSaidaMealy> getTransOutFromSExp(ArrayList<SExp> transicoes) {
+        List<TransicaoSaidaMealy> transicaoSaidas = new ArrayList<>();
+        for (SExp transicao : transicoes) {
+            String[] tokens = transicao.getAtoms();
+            transicaoSaidas.add(new TransicaoSaidaMealy(tokens[1], tokens[3]));
+        }
 
-    public Set<String> getAlfabetoSaida() {
-        return alfabetoSaida;
-    }
-
-    public void setAlfabetoSaida(Set<String> alfabetoSaida) {
-        this.alfabetoSaida = alfabetoSaida;
+        return transicaoSaidas.iterator();
     }
 }

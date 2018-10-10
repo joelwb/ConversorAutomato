@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package automatosfinitos;
+package sexpression;
 
 import java.io.BufferedReader;
 import java.util.ArrayList;
@@ -49,18 +49,23 @@ public class SExp {
     private void printExpression(int depth, StringBuilder sb) {
         // indentation 
         for (int i = 0; i < depth; i++) {
-            sb.append("--");
+            sb.append(" ");
         }
 
         // print atoms 
-        sb.append("[");
+        sb.append("(");
         for (int i = 0; i < atoms.length; i++) {
-            sb.append(atoms[i] + (i < atoms.length - 1 ? "," : ""));
+            sb.append(atoms[i] + (i < atoms.length - 1 ? " " : ""));
         }
-        sb.append("]\n");
+        
+        if (children != null && children.get(0).getAtoms()[0].isEmpty()) {
+            sb.append(" () ");
+        }
+        
+        sb.append(")\n");
 
         // children 
-        if (children != null) {
+        if (children != null && !children.get(0).getAtoms()[0].isEmpty()) {
             for (SExp se : children) {
                 se.printExpression(depth + 1, sb);
             }

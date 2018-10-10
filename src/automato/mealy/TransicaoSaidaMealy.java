@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package automato.mealy.transicao;
+package automato.mealy;
 
 /**
  *
  * @author joel-
  */
-public class TransicaoSaida {
+public class TransicaoSaidaMealy {
     private String estado;
     private String simboloSaida;
 
-    public TransicaoSaida(String estado, String simboloSaida) {
+    public TransicaoSaidaMealy(String estado, String simboloSaida) {
         this.estado = estado;
         this.simboloSaida = simboloSaida;
     }
