@@ -20,11 +20,11 @@ public abstract class AutomatoConversivel {
     private Set<String> estadosFinais;
 
     public AutomatoConversivel(SExp sExp) {
-        this.alfabetoIn = getConjunto(sExp.getChildren().get(0).getAtoms());
-        this.alfabetoOut = getConjunto(sExp.getChildren().get(1).getAtoms());
-        this.estados = getConjunto(sExp.getChildren().get(2).getAtoms());
-        this.estadoInicial = sExp.getChildren().get(3).getAtoms()[1];
-        this.estadosFinais = getConjunto(sExp.getChildren().get(4).getAtoms());
+        this.alfabetoIn = getConjunto(sExp.getChildren().get(0).getTokens());
+        this.alfabetoOut = getConjunto(sExp.getChildren().get(1).getTokens());
+        this.estados = getConjunto(sExp.getChildren().get(2).getTokens());
+        this.estadoInicial = sExp.getChildren().get(3).getTokens()[1];
+        this.estadosFinais = getConjunto(sExp.getChildren().get(4).getTokens());
     }
     
     public AutomatoConversivel(Set<String> alfabetoIn, Set<String> estados, String estadoInicial, Set<String> alfabetoOut, Set<String> estadosFinais) {
@@ -43,12 +43,12 @@ public abstract class AutomatoConversivel {
         this.estadosFinais = estadosFinais;
     }
 
-    public Set<String> getAlfabetoEntrada() {
+    public Set<String> getAlfabetoIn() {
         return alfabetoIn;
     }
 
-    public void setAlfabetoEntrada(Set<String> alfabetoEntrada) {
-        this.alfabetoIn = alfabetoEntrada;
+    public void setAlfabetoIn(Set<String> alfabetoIn) {
+        this.alfabetoIn = alfabetoIn;
     }
 
     public Set<String> getEstados() {
@@ -67,18 +67,18 @@ public abstract class AutomatoConversivel {
         this.estadoInicial = estadoInicial;
     }
 
-    public Set<String> getAlfabetoSaida() {
+    public Set<String> getAlfabetoOut() {
         return alfabetoOut;
     }
 
-    public void setAlfabetoSaida(Set<String> alfabetoSaida) {
-        this.alfabetoOut = alfabetoSaida;
+    public void setAlfabetoSOut(Set<String> alfabetoOut) {
+        this.alfabetoOut = alfabetoOut;
     }
     
     protected Iterator<TransicaoEntrada> getTransInFromSExp(ArrayList<SExp> transicoes) {
         List<TransicaoEntrada> transicaoEntradas = new ArrayList<>();
         for (SExp transicao : transicoes) {
-            String[] tokens = transicao.getAtoms();
+            String[] tokens = transicao.getTokens();
             transicaoEntradas.add(new TransicaoEntrada(tokens[2], tokens[0]));
         }
 

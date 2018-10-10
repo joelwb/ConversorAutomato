@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sexpression;
 
 import java.io.BufferedReader;
@@ -20,10 +15,13 @@ public class SExp {
     private StringBuilder atomText = new StringBuilder();
     private SExp parent;
     private ArrayList<SExp> children;
-    private String[] atoms;
+    private String[] tokens;
 
-    public String[] getAtoms() {
-        return atoms;
+    protected SExp() {
+    }
+
+    public String[] getTokens() {
+        return tokens;
     }
 
     public SExp getParent() {
@@ -34,7 +32,16 @@ public class SExp {
         return children;
     }
 
-    private SExp() {
+    public void setChildren(ArrayList<SExp> children){
+        this.children = children;
+    }
+
+    public void setParent(SExp parent){
+        this.parent = parent;
+    }
+
+    public void setTokens(String[] tokens){
+        this.tokens = tokens;
     }
 
     public void printMultiLine() {
@@ -54,22 +61,24 @@ public class SExp {
 
         // print atoms 
         sb.append("(");
-        for (int i = 0; i < atoms.length; i++) {
-            sb.append(atoms[i] + (i < atoms.length - 1 ? " " : ""));
+        for (int i = 0; i < tokens.length; i++) {
+            sb.append(tokens[i] + (i < tokens.length - 1 ? " " : ""));
         }
         
-        if (children != null && children.get(0).getAtoms()[0].isEmpty()) {
-            sb.append(" () ");
+        if (children != null && children.get(0).getTokens()[0].isEmpty()) {
+            sb.append(" ()");
         }
         
-        sb.append(")\n");
-
         // children 
-        if (children != null && !children.get(0).getAtoms()[0].isEmpty()) {
+        if (children != null && !children.get(0).getTokens()[0].isEmpty()) {
             for (SExp se : children) {
+                sb.append("\n");
                 se.printExpression(depth + 1, sb);
             }
+            
         }
+        
+        sb.append(")");
     }
 
     /**
@@ -114,7 +123,7 @@ public class SExp {
                 }
 
                 // tokenize atoms 
-                curExpr.atoms = curExpr.atomText.toString().split("\\s+");
+                curExpr.tokens = curExpr.atomText.toString().split("\\s+");
                 curExpr.atomText = null;
                 curExpr = curExpr.parent;
 

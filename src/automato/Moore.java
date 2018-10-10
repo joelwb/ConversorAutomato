@@ -61,7 +61,7 @@ public class Moore extends AutomatoConversivel{
     private Iterator<String> getTransOutFromSExp(ArrayList<SExp> transicoes) {
         List<String> transicaoSaidas = new ArrayList<>();
         for (SExp transicao : transicoes) {
-            transicaoSaidas.add(transicao.getAtoms()[1]);
+            transicaoSaidas.add(transicao.getTokens()[1]);
         }
 
         return transicaoSaidas.iterator();
@@ -73,8 +73,8 @@ public class Moore extends AutomatoConversivel{
         Map<String,String> funcSaidaFromSExp = new HashMap<>();
         for (SExp trans : transicoes){
             boolean transHasSaidaVazia = trans.getChildren() != null;
-            String estado = trans.getAtoms()[0];
-            String saida = transHasSaidaVazia ? "" : trans.getAtoms()[1];
+            String estado = trans.getTokens()[0];
+            String saida = transHasSaidaVazia ? "" : trans.getTokens()[1];
             
             funcSaidaFromSExp.put(estado, saida);
         }

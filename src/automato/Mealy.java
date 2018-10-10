@@ -55,7 +55,7 @@ public class Mealy extends AutomatoConversivel {
     private Iterator<TransicaoSaidaMealy> getTransOutFromSExp(ArrayList<SExp> transicoes) {
         List<TransicaoSaidaMealy> transicaoSaidas = new ArrayList<>();
         for (SExp transicao : transicoes) {
-            String[] tokens = transicao.getAtoms();
+            String[] tokens = transicao.getTokens();
             transicaoSaidas.add(new TransicaoSaidaMealy(tokens[1], tokens[3]));
         }
 

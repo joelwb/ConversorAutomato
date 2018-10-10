@@ -22,7 +22,7 @@ public class InputAutomato {
         List<AutomatoConversivel> automatos = new ArrayList<>();
         for (SExp automatoSExp : automatosSExp) {
             automatoSExp.printMultiLine();
-            if (automatoSExp.getAtoms()[0].equalsIgnoreCase("mealy")) 
+            if (automatoSExp.getTokens()[0].equalsIgnoreCase("mealy")) 
                 automatos.add(new Mealy(automatoSExp));
             else 
                 automatos.add(new Moore(automatoSExp));
