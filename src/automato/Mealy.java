@@ -38,27 +38,4 @@ public class Mealy extends AutomatoConversivel {
     public void setFuncTrans(Map<TransicaoEntrada, TransicaoSaidaMealy> funcTrans) {
         this.funcTrans = funcTrans;
     }
-    
-    private Map<TransicaoEntrada,TransicaoSaidaMealy> getFuncTransFromSExp(SExp sExp){
-        ArrayList<SExp> transicoes = sExp.getChildren().get(5).getChildren();
-        Iterator<TransicaoEntrada> transicaoEntradas = getTransInFromSExp(transicoes);
-        Iterator<TransicaoSaidaMealy> transicaoSaidas = getTransOutFromSExp(transicoes);
-        
-        Map<TransicaoEntrada, TransicaoSaidaMealy> funcTransFromSExp = new HashMap<>();
-        
-        while (transicaoEntradas.hasNext() || transicaoSaidas.hasNext()) 
-            funcTransFromSExp.put(transicaoEntradas.next(), transicaoSaidas.next());
-        
-        return funcTransFromSExp;
-    }
-
-    private Iterator<TransicaoSaidaMealy> getTransOutFromSExp(ArrayList<SExp> transicoes) {
-        List<TransicaoSaidaMealy> transicaoSaidas = new ArrayList<>();
-        for (SExp transicao : transicoes) {
-            String[] tokens = transicao.getTokens();
-            transicaoSaidas.add(new TransicaoSaidaMealy(tokens[1], tokens[3]));
-        }
-
-        return transicaoSaidas.iterator();
-    }
 }

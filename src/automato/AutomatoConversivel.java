@@ -19,14 +19,6 @@ public abstract class AutomatoConversivel {
     private Set<String> alfabetoOut;
     private Set<String> estadosFinais;
 
-    public AutomatoConversivel(SExp sExp) {
-        this.alfabetoIn = getConjunto(sExp.getChildren().get(0).getTokens());
-        this.alfabetoOut = getConjunto(sExp.getChildren().get(1).getTokens());
-        this.estados = getConjunto(sExp.getChildren().get(2).getTokens());
-        this.estadoInicial = sExp.getChildren().get(3).getTokens()[1];
-        this.estadosFinais = getConjunto(sExp.getChildren().get(4).getTokens());
-    }
-    
     public AutomatoConversivel(Set<String> alfabetoIn, Set<String> estados, String estadoInicial, Set<String> alfabetoOut, Set<String> estadosFinais) {
         this.alfabetoIn = alfabetoIn;
         this.estados = estados;
@@ -86,8 +78,4 @@ public abstract class AutomatoConversivel {
     }
     
     public abstract AutomatoConversivel converter();
-    
-    protected final Set<String> getConjunto(String[] array){
-        return new LinkedHashSet<>(Arrays.asList(array).subList(1,array.length));
-    }
 }
