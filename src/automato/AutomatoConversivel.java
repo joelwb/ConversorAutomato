@@ -1,9 +1,7 @@
 package automato;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import sexpression.SExp;
@@ -67,15 +65,15 @@ public abstract class AutomatoConversivel {
         this.alfabetoOut = alfabetoOut;
     }
     
-    protected Iterator<TransicaoEntrada> getTransInFromSExp(ArrayList<SExp> transicoes) {
-        List<TransicaoEntrada> transicaoEntradas = new ArrayList<>();
+    protected Iterator<TransIn> getTransInFromSExp(ArrayList<SExp> transicoes) {
+        List<TransIn> transicaoEntradas = new ArrayList<>();
         for (SExp transicao : transicoes) {
             String[] tokens = transicao.getTokens();
-            transicaoEntradas.add(new TransicaoEntrada(tokens[2], tokens[0]));
+            transicaoEntradas.add(new TransIn(tokens[2], tokens[0]));
         }
 
         return transicaoEntradas.iterator();
     }
     
-    public abstract AutomatoConversivel converter();
+    public abstract AutomatoConversivel converter() throws Exception;
 }

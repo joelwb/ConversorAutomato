@@ -1,6 +1,5 @@
-package sexpression;
+package sexpression.to_automato;
 
-import automato.AutomatoConversivel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -8,7 +7,8 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 import automato.AutomatoConversivel;
-import automato.TransicaoEntrada;;
+import automato.TransIn;
+import sexpression.SExp;
 
 public abstract class SExpToAutomato{
     private Set<String> alfabetoIn;
@@ -17,7 +17,7 @@ public abstract class SExpToAutomato{
     private Set<String> alfabetoOut;
     private Set<String> estadosFinais;
 
-    public SExpToAutomato(SExp sExp){
+    public SExpToAutomato(SExp sExp) throws Exception{
         this.alfabetoIn = getConjunto(sExp, "symbols−in");
         this.estados = getConjunto(sExp, "states");
         this.estadoInicial = (String) getConjunto(sExp, "start").toArray()[0];
@@ -25,28 +25,34 @@ public abstract class SExpToAutomato{
         this.estadosFinais = getConjunto(sExp, "finals");
     }
 
-    protected Iterator<TransicaoEntrada> getTransInFromSExp(ArrayList<SExp> transicoes) {
-        List<TransicaoEntrada> transicaoEntradas = new ArrayList<>();
+    protected Iterator<TransIn> getTransInFromSExp(ArrayList<SExp> transicoes) {
+        List<TransIn> transicaoEntradas = new ArrayList<>();
         for (SExp transicao : transicoes) {
             String[] tokens = transicao.getTokens();
-            transicaoEntradas.add(new TransicaoEntrada(tokens[2], tokens[0]));
+            transicaoEntradas.add(new TransIn(tokens[2], tokens[0]));
         }
 
         return transicaoEntradas.iterator();
     }
-
-    public static final Set<String> getConjunto(SExp sExp, String child){
-        SExp childSExp = null;
-        for (SExp c : sExp.getChildren()){
-            if (c.getTokens()[0].equalsIgnoreCase(child)){
-                childSExp = c;
-                break;
-            }
+    
+    public static int idxConjunto(SExp sExp, String child){
+        
+        for (int i = 0; i < sExp.getChildren().size(); i++){
+            if (sExp.getChildren().get(i).getTokens()[0].equalsIgnoreCase(child)) return i;
         }
+        
+        return -1;
+    }
 
-        if (childSExp == null) new Exception("Automato não possui " + child);
+    public static final Set<String> getConjunto(SExp sExp, String child) throws Exception{
+        int idx = idxConjunto(sExp, child);
+        if (idx == -1) throw new Exception("Automato não possui " + child);
+        
+        SExp childSExp = sExp.getChildren().get(idx);
 
         String[] tokens = childSExp.getTokens();
+        
+        if (tokens.length == 1) throw new Exception(child + " não tem corpo");
 
         return new LinkedHashSet<>(Arrays.asList(tokens).subList(1,tokens.length));
     }

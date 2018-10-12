@@ -1,13 +1,13 @@
 package main;
 
 import automato.AutomatoConversivel;
-import automato.Mealy;
 import automato.file.InputAutomato;
-import sexpression.MealyToSExp;
+import automato.file.OutputAutomato;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,8 +20,15 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws FileNotFoundException, Exception {
-        List<AutomatoConversivel> automatos = InputAutomato.getAutomatos(new FileReader(new File("InputMealy.txt")));
-        MealyToSExp.converter((Mealy) automatos.get(0));
+        List<AutomatoConversivel> automatosIn = InputAutomato.getAutomatos(new FileReader("Input.txt"));
+        
+        List<AutomatoConversivel> automatosConvertidos = new ArrayList<>();
+        
+        for (AutomatoConversivel automato: automatosIn){
+            automatosConvertidos.add(automato.converter());
+        }
+        
+        OutputAutomato.writeAutomatos(new FileWriter("Output.txt"), automatosConvertidos);
     }
     
 }

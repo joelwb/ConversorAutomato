@@ -1,11 +1,7 @@
 package automato;
 
-import sexpression.SExp;
-import automato.mealy.TransicaoSaidaMealy;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import automato.mealy.TransOutMealy;
+
 import java.util.Map;
 import java.util.Set;
 
@@ -14,14 +10,9 @@ import java.util.Set;
  * @author joel-
  */
 public class Mealy extends AutomatoConversivel {
-    private Map<TransicaoEntrada, TransicaoSaidaMealy> funcTrans;
+    private Map<TransIn, TransOutMealy> funcTrans;
 
-    public Mealy(SExp sExp) {
-        super(sExp);
-        this.funcTrans = getFuncTransFromSExp(sExp);
-    }
-
-    public Mealy(Map<TransicaoEntrada, TransicaoSaidaMealy> funcTrans, Set<String> alfabetoIn, Set<String> estados, String estadoInicial, Set<String> alfabetoOut, Set<String> estadosFinais) {
+    public Mealy(Map<TransIn, TransOutMealy> funcTrans, Set<String> alfabetoIn, Set<String> estados, String estadoInicial, Set<String> alfabetoOut, Set<String> estadosFinais) {
         super(alfabetoIn, estados, estadoInicial, alfabetoOut, estadosFinais);
         this.funcTrans = funcTrans;
     }
@@ -31,11 +22,11 @@ public class Mealy extends AutomatoConversivel {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    public Map<TransicaoEntrada, TransicaoSaidaMealy> getFuncTrans() {
+    public Map<TransIn, TransOutMealy> getFuncTrans() {
         return funcTrans;
     }
 
-    public void setFuncTrans(Map<TransicaoEntrada, TransicaoSaidaMealy> funcTrans) {
+    public void setFuncTrans(Map<TransIn, TransOutMealy> funcTrans) {
         this.funcTrans = funcTrans;
     }
 }
