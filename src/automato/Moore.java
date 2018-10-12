@@ -1,12 +1,9 @@
 package automato;
 
-import java.util.ArrayList;
+import automato.mealy.TransOutMealy;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import sexpression.SExp;
 
 /**
  *
@@ -14,26 +11,20 @@ import sexpression.SExp;
  */
 public class Moore extends AutomatoConversivel{
 
-    private Map<TransicaoEntrada, String> funcTrans;
+    private Map<TransIn, String> funcTrans;
     private Map<String, String> funcSaida;
 
-    public Moore(SExp sExp) {
-        super(sExp);
-        this.funcTrans = getFuncTransFromSExp(sExp);
-        this.funcSaida = getFuncSaidaFromSExp(sExp);
-    }
-
-    public Moore(Map<TransicaoEntrada, String> funcTrans, Map<String, String> funcSaida, Set<String> alfabetoIn, Set<String> estados, String estadoInicial, Set<String> alfabetoOut, Set<String> estadosFinais) {
+    public Moore(Map<TransIn, String> funcTrans, Map<String, String> funcSaida, Set<String> alfabetoIn, Set<String> estados, String estadoInicial, Set<String> alfabetoOut, Set<String> estadosFinais) {
         super(alfabetoIn, estados, estadoInicial, alfabetoOut, estadosFinais);
         this.funcTrans = funcTrans;
         this.funcSaida = funcSaida;
     }
 
-    public Map<TransicaoEntrada, String> getFuncTrans() {
+    public Map<TransIn, String> getFuncTrans() {
         return funcTrans;
     }
 
-    public void setFuncTrans(Map<TransicaoEntrada, String> funcTrans) {
+    public void setFuncTrans(Map<TransIn, String> funcTrans) {
         this.funcTrans = funcTrans;
     }
 
@@ -45,45 +36,21 @@ public class Moore extends AutomatoConversivel{
         this.funcSaida = funcSaida;
     }
     
-    private Map<TransicaoEntrada,String> getFuncTransFromSExp(SExp sExp){
-        ArrayList<SExp> transicoes = sExp.getChildren().get(5).getChildren();
-        Iterator<TransicaoEntrada> transicaoEntradas = getTransInFromSExp(transicoes);
-        Iterator<String> transicaoSaidas = getTransOutFromSExp(transicoes);
-        
-        Map<TransicaoEntrada, String> funcTransFromSExp = new HashMap<>();
-        
-        while (transicaoEntradas.hasNext() || transicaoSaidas.hasNext()) 
-            funcTransFromSExp.put(transicaoEntradas.next(), transicaoSaidas.next());
-        
-        return funcTransFromSExp;
-    }
-    
-    private Iterator<String> getTransOutFromSExp(ArrayList<SExp> transicoes) {
-        List<String> transicaoSaidas = new ArrayList<>();
-        for (SExp transicao : transicoes) {
-            transicaoSaidas.add(transicao.getTokens()[1]);
-        }
-
-        return transicaoSaidas.iterator();
-    }
-    
-    private Map<String,String> getFuncSaidaFromSExp(SExp sExp){
-        ArrayList<SExp> transicoes = sExp.getChildren().get(6).getChildren();
-        
-        Map<String,String> funcSaidaFromSExp = new HashMap<>();
-        for (SExp trans : transicoes){
-            boolean transHasSaidaVazia = trans.getChildren() != null;
-            String estado = trans.getTokens()[0];
-            String saida = transHasSaidaVazia ? "" : trans.getTokens()[1];
-            
-            funcSaidaFromSExp.put(estado, saida);
-        }
-        
-        return funcSaidaFromSExp;
-    }
     @Override
-    public AutomatoConversivel converter() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public AutomatoConversivel converter() throws Exception{
+        if (!funcSaida.get(getEstadoInicial()).isEmpty())
+            throw new Exception("Impossivel de converter, pois o estado inicial tem saida");
+        
+        Map<TransIn, TransOutMealy> funcTransMealy = new HashMap<>();
+        
+        funcTrans.entrySet().forEach((transicao) -> {
+            String estadoOut = transicao.getValue();
+            TransOutMealy out = new TransOutMealy(estadoOut, funcSaida.get(estadoOut));
+            
+            funcTransMealy.put(transicao.getKey(), out);
+        });
+        
+        return new Mealy(funcTransMealy, getAlfabetoIn(), getEstados(), getEstadoInicial(), getAlfabetoOut(), getEstadosFinais());
     }
     
 }

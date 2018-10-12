@@ -3,27 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package automato;
+package automato.mealy;
 
 /**
  *
  * @author joel-
  */
-public class TransicaoEntrada {
-    private String simboloAlfabeto;
+public class TransOutMealy {
     private String estado;
+    private String simboloSaida;
 
-    public TransicaoEntrada(String simboloAlfabeto, String estado) {
-        this.simboloAlfabeto = simboloAlfabeto;
+    public TransOutMealy(String estado, String simboloSaida) {
         this.estado = estado;
-    }
-
-    public String getSimboloAlfabeto() {
-        return simboloAlfabeto;
-    }
-
-    public void setSimboloAlfabeto(String simboloAlfabeto) {
-        this.simboloAlfabeto = simboloAlfabeto;
+        this.simboloSaida = simboloSaida;
     }
 
     public String getEstado() {
@@ -32,5 +24,13 @@ public class TransicaoEntrada {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    public String getSimboloSaida() {
+        return simboloSaida;
+    }
+
+    public void setSimboloSaida(String simboloSaida) {
+        this.simboloSaida = simboloSaida;
     }
 }

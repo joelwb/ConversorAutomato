@@ -17,7 +17,7 @@ public class SExp {
     private ArrayList<SExp> children;
     private String[] tokens;
 
-    protected SExp() {
+    public SExp() {
     }
 
     public String[] getTokens() {
@@ -32,15 +32,15 @@ public class SExp {
         return children;
     }
 
-    public void setChildren(ArrayList<SExp> children){
+    public void setChildren(ArrayList<SExp> children) {
         this.children = children;
     }
 
-    public void setParent(SExp parent){
+    public void setParent(SExp parent) {
         this.parent = parent;
     }
 
-    public void setTokens(String[] tokens){
+    public void setTokens(String[] tokens) {
         this.tokens = tokens;
     }
 
@@ -56,7 +56,7 @@ public class SExp {
     private void printExpression(int depth, StringBuilder sb) {
         // indentation 
         for (int i = 0; i < depth; i++) {
-            sb.append(" ");
+            sb.append("    ");
         }
 
         // print atoms 
@@ -64,11 +64,11 @@ public class SExp {
         for (int i = 0; i < tokens.length; i++) {
             sb.append(tokens[i] + (i < tokens.length - 1 ? " " : ""));
         }
-        
+
         if (children != null && children.get(0).getTokens()[0].isEmpty()) {
             sb.append(" ()");
         }
-        
+
         // children 
         if (children != null && !children.get(0).getTokens()[0].isEmpty()) {
             for (SExp se : children) {
@@ -76,8 +76,14 @@ public class SExp {
                 se.printExpression(depth + 1, sb);
             }
             
+            sb.append("\n");
+            if (tokens.length == 1) {
+                for (int i = 0; i < depth; i++) {
+                    sb.append("    ");
+                }
+            }
         }
-        
+
         sb.append(")");
     }
 
@@ -95,7 +101,7 @@ public class SExp {
         int c;
         while ((c = reader.read()) != -1) {
             char character = (char) c;
-            
+
             if (character == EXPRESSION_START) {
                 // new expression started 
                 SExp expr = new SExp();
@@ -130,7 +136,18 @@ public class SExp {
             } else {
                 // append character to current expression's list of atoms or 
                 // ignore it if there is no expression started 
-                if (curExpr != null) {
+                // Só entra se o caracter for espaço em branco ou
+                // Caso não seja, o atomText não pode ser vazio
+                // Isso é para evitar espaços em branco após (
+                if (curExpr != null && (character != ' ' || (character == ' ' && !curExpr.atomText.toString().isEmpty()))) {
+
+                    // Valida se caso a expressão ja tenha filhos
+                    // Não pode ter qualque outro caracter apos isto, tirando espaço e pular linha
+                    // Ou seja, não pode adicionar mais tokens a expressão depois que ja se tem filhos
+                    if (curExpr.getChildren() != null && character != ' ' && character != '\n' && character != '\r') {
+                        throw new Exception("Erro! Não se pode adicionar mais tokens depois que a SExp já possui filhos!");
+                    }
+
                     curExpr.atomText.append(character);
                 }
             }
