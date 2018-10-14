@@ -24,4 +24,4 @@ Nome e Modo de uso:
         O nome do programa é ConversorAutomatos
         Deve-se abrir o terminal na pasta onde se encontra o arquivo ConversorAutomatos.jar e executar o seguinte comando
                 java ConversorAutomatos.jar -i <arquivo de entrada> -o <arquivo de saida>
-                Ex: java ConversorAutomatos.jar -i input.txt -o output.txt
+                Ex: java ConversorAutomatos.jar -i Input.txt -o Output.txt
