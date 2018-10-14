@@ -23,5 +23,5 @@ Nome e Modo de uso:
 
         O nome do programa é AutomatosFinitos
         Deve-se abrir o terminal na pasta onde se encontra o arquivo ConversorAutomatos.jar e executar o seguinte comando
-                java AutomatosFinitos.jar -i <arquivo de entrada> -o <arquivo de saida>
-                Ex: java AutomatosFinitos.jar -i Input.txt -o Output.txt
+                java -jar "AutomatosFinitos.jar"  -i <arquivo de entrada> -o <arquivo de saida>
+                Ex: java -jar "AutomatosFinitos.jar"  -i Input.txt -o Output.txt
