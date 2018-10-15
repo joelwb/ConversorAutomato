@@ -54,14 +54,9 @@ public class Mealy extends AutomatoConversivel {
             String estadoOutEquivalente = estadoNovoEquivalente(estadosGerados, trans.getValue());
             String simboloIn = trans.getKey().getSimboloIn();
             
-            System.out.print(trans.getKey().getEstado() + "," + simboloIn + " : " + trans.getValue().getEstado() + "," + trans.getValue().getSimboloOut() + " -> ");
-            
             for (String estadosIn : estadosGerados.get(trans.getKey().getEstado()).keySet()){
-                System.out.print(estadosIn + "," + simboloIn + " : " + estadoOutEquivalente + "; ");
                 funcTransMoore.put(new TransIn(simboloIn, estadosIn), estadoOutEquivalente);
             }
-            
-            System.out.println();
         }
         
         for (String estadoFinal : getEstadosFinais()){

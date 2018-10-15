@@ -150,7 +150,6 @@ public class SExp {
                     
                     if (character == '−'){
                         character = '-';
-                        System.out.println("Entrou");
                     }
                     
                     curExpr.atomText.append(character);

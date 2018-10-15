@@ -34,7 +34,7 @@ public class MooreToSExp {
         
         SExp funcSaida= new SExp();
         funcSaida.setChildren(new ArrayList<>());
-        funcSaida.setTokens(new String[]{"out−fn"});
+        funcSaida.setTokens(new String[]{"out-fn"});
         funcSaida.setParent(root);
         
         for (Map.Entry<String,String> transicaoSaida : moore.getFuncSaida().entrySet()){
