@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -16,11 +17,25 @@ import java.util.List;
  */
 public class Main {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) throws FileNotFoundException, Exception {
-        List<AutomatoConversivel> automatosIn = InputAutomato.getAutomatos(new FileReader("Input.txt"));
+        if (args.length != 4){
+            System.out.println("Número de argumentos inválido = " + args.length);
+            return;
+        }
+        
+        List<String> argsLst = Arrays.asList(args);
+        int idxInput = argsLst.indexOf("-i");
+        int idxOutput = argsLst.indexOf("-o");
+        
+        if (idxInput - idxOutput == 1 || idxOutput - idxInput == 1 || idxOutput == 3 || idxInput == 4){
+            System.out.println("Parametros inválidos");
+            return;
+        }
+        
+        String arqInput = args[idxInput + 1];
+        String arqOutput = args[idxOutput + 1];
+        
+        List<AutomatoConversivel> automatosIn = InputAutomato.getAutomatos(new FileReader(arqInput));
         
         List<AutomatoConversivel> automatosConvertidos = new ArrayList<>();
         
@@ -28,7 +43,7 @@ public class Main {
             automatosConvertidos.add(automato.converter());
         }
         
-        OutputAutomato.writeAutomatos(new FileWriter("Output.txt"), automatosConvertidos);
+        OutputAutomato.writeAutomatos(new FileWriter(arqOutput), automatosConvertidos);
     }
     
 }

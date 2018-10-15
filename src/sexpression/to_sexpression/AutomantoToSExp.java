@@ -15,9 +15,9 @@ abstract class AutomantoToSExp {
     
     protected static SExp converter(AutomatoConversivel automato, String nome){
         SExp root = new SExp();
-        SExp alfabetoIn = createSExpFromSet(automato.getAlfabetoIn(), "symbols−in", root);
+        SExp alfabetoIn = createSExpFromSet(automato.getAlfabetoIn(), "symbols-in", root);
         SExp estados = createSExpFromSet(automato.getEstados(), "states" , root);
-        SExp alfabetoOut = createSExpFromSet(automato.getAlfabetoOut(), "symbols−out", root);
+        SExp alfabetoOut = createSExpFromSet(automato.getAlfabetoOut(), "symbols-out", root);
         SExp estadosFinais = createSExpFromSet(automato.getEstadosFinais(), "finals", root);
         
         SExp estadoInicial = new SExp();

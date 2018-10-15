@@ -53,7 +53,7 @@ public class SExpToMoore extends SExpToAutomato{
     }
     
     private Map<String,String> getFuncSaidaFromSExp(SExp sExp) throws Exception{
-        int idx = idxConjunto(sExp, "out−fn");
+        int idx = idxConjunto(sExp, "out-fn");
         if (idx == -1) throw new Exception("Automato não possui função de saida");
         
         ArrayList<SExp> transicoes = sExp.getChildren().get(idx).getChildren();

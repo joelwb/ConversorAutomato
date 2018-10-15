@@ -27,7 +27,7 @@ public class MooreToSExp {
             TransIn tranIn= transicao.getKey();
             String transOut = transicao.getValue();
             
-            trans.setTokens(new String[] {tranIn.getEstado(),transOut,tranIn.getSimboloAlfabeto()});
+            trans.setTokens(new String[] {tranIn.getEstado(),transOut,tranIn.getSimboloIn()});
             funcTrans.getChildren().add(trans);
         }
         

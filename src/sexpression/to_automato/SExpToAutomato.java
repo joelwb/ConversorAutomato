@@ -18,10 +18,10 @@ public abstract class SExpToAutomato{
     private Set<String> estadosFinais;
 
     public SExpToAutomato(SExp sExp) throws Exception{
-        this.alfabetoIn = getConjunto(sExp, "symbols−in");
+        this.alfabetoIn = getConjunto(sExp, "symbols-in");
         this.estados = getConjunto(sExp, "states");
         this.estadoInicial = (String) getConjunto(sExp, "start").toArray()[0];
-        this.alfabetoOut = getConjunto(sExp, "symbols−out");
+        this.alfabetoOut = getConjunto(sExp, "symbols-out");
         this.estadosFinais = getConjunto(sExp, "finals");
     }
 

@@ -24,7 +24,7 @@ public abstract class MealyToSExp{
             TransIn tranIn= transicao.getKey();
             TransOutMealy transOut = transicao.getValue();
             
-            trans.setTokens(new String[] {tranIn.getEstado(),transOut.getEstado(),tranIn.getSimboloAlfabeto(),transOut.getSimboloSaida()});
+            trans.setTokens(new String[] {tranIn.getEstado(),transOut.getEstado(),tranIn.getSimboloIn(),transOut.getSimboloOut()});
             funcTrans.getChildren().add(trans);
         }
 

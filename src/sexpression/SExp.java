@@ -147,7 +147,12 @@ public class SExp {
                     if (curExpr.getChildren() != null && character != ' ' && character != '\n' && character != '\r') {
                         throw new Exception("Erro! Não se pode adicionar mais tokens depois que a SExp já possui filhos!");
                     }
-
+                    
+                    if (character == '−'){
+                        character = '-';
+                        System.out.println("Entrou");
+                    }
+                    
                     curExpr.atomText.append(character);
                 }
             }

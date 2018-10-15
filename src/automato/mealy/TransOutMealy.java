@@ -5,17 +5,18 @@
  */
 package automato.mealy;
 
+
 /**
  *
  * @author joel-
  */
 public class TransOutMealy {
     private String estado;
-    private String simboloSaida;
+    private String simboloOut;
 
-    public TransOutMealy(String estado, String simboloSaida) {
+    public TransOutMealy(String estado, String simboloOut) {
         this.estado = estado;
-        this.simboloSaida = simboloSaida;
+        this.simboloOut = simboloOut;
     }
 
     public String getEstado() {
@@ -26,11 +27,16 @@ public class TransOutMealy {
         this.estado = estado;
     }
 
-    public String getSimboloSaida() {
-        return simboloSaida;
+    public String getSimboloOut() {
+        return simboloOut;
     }
 
-    public void setSimboloSaida(String simboloSaida) {
-        this.simboloSaida = simboloSaida;
+    public void setSimboloOut(String simboloOut) {
+        this.simboloOut = simboloOut;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return obj instanceof TransOutMealy && ((TransOutMealy)obj).estado.endsWith(estado);
     }
 }

@@ -10,20 +10,20 @@ package automato;
  * @author joel-
  */
 public class TransIn {
-    private String simboloAlfabeto;
+    private String simboloIn;
     private String estado;
 
-    public TransIn(String simboloAlfabeto, String estado) {
-        this.simboloAlfabeto = simboloAlfabeto;
+    public TransIn(String simboloIn, String estado) {
+        this.simboloIn = simboloIn;
         this.estado = estado;
     }
 
-    public String getSimboloAlfabeto() {
-        return simboloAlfabeto;
+    public String getSimboloIn() {
+        return simboloIn;
     }
 
-    public void setSimboloAlfabeto(String simboloAlfabeto) {
-        this.simboloAlfabeto = simboloAlfabeto;
+    public void setSimboloIn(String simboloIn) {
+        this.simboloIn = simboloIn;
     }
 
     public String getEstado() {

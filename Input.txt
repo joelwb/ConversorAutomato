@@ -1,20 +1,37 @@
+(mealy
+ (symbols-in a b)
+ (symbols-out x y)
+ (states s0 s1 s2 s3 s4 s5)
+ (start s0)
+ (finals s5)
+ (trans
+  (s0 s1 a x) (s0 s2 b y) (s1 s3 a x) (s1 s4 b y)(s2 s3 a y) (s2 s4 b x) (s3 s5 a x) (s3 s5 b y) (s4 s5 a y) (s4 s5 b x)))﻿
+
+
 (moore
-(symbols−in a b) 
-(symbols−out 0 1)
+(symbols-in a b) 
+(symbols-out 0 1)
 (states q0 q0’ q1 q2 q3 q3’)
 (start q0)
 (finals q3 q3’)
 (trans
-(q0 q1 a) (q0 q3 b) (q1 q3’ a) (q1 q2 b)
-(q2 q0’ a) (q2 q3’ b) (q3 q3’ a) (q3 q0’ b)
-(q3’ q3’ a) (q3’ q0’ b))
-(out−fn
+(q0 q1 a) 
+(q0 q3 b) 
+(q1 q3’ a) 
+(q1 q2 b)
+(q2 q0’ a) 
+(q2 q3’ b) 
+(q3 q3’ a) 
+(q3 q0’ b)
+(q3’ q3’ a) 
+(q3’ q0’ b))
+(out-fn
 (q0 ()) (q0’ 1) (q1 0)
 (q2 1) (q3 0) (q3’ 1)))
 
 (mealy
- ( symbols−in a b   )
- ( symbols−out 0 1)
+ ( symbols-in a b   )
+ ( symbols-out 0 1)
  ( states q0 q1 q2 q3)
  ( start q0)
  ( finals q3)
