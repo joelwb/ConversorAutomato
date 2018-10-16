@@ -17,6 +17,9 @@ Descrição do Código Fonte:
         A Main, portanto, tem a responsabilidade de receber os argumentos de entrada e saida de arquivo e coordenar os passos
         descritos acima.
         
+        OBS: É possivel ter mais de um Autômato no arquivo, sendo que os 2 arquivos de teste (Input1.txt e Input2.txt,
+        dispolibilzados aqui) possuem 3 automatos cada.
+        
 Compilação: Não será necessário, pois já está dispolibilizado o arquivo .jar neste repositório.
 
 Nome e Modo de uso:
@@ -25,3 +28,5 @@ Nome e Modo de uso:
         Deve-se abrir o terminal na pasta onde se encontra o arquivo ConversorAutomatos.jar e executar o seguinte comando
                 java -jar "AutomatosFinitos.jar"  -i <arquivo de entrada> -o <arquivo de saida>
                 Ex: java -jar "AutomatosFinitos.jar"  -i Input.txt -o Output.txt
+                
+                
